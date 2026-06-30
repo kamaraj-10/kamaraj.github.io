@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 4: Vector Databases & Embeddings - RAG Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">RAG Learning</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#sessions">Sessions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="session-header">
+        <h1>Session 4: Vector Databases & Embeddings</h1>
+        <p class="session-meta">The Technology Behind Smart Retrieval</p>
+    </header>
+
+    <section class="session-content">
+        <div class="container">
+            <h2>What are Embeddings?</h2>
+            <p>
+                Embeddings are a way to represent text, images, or other data as numbers that a computer can understand and compare. 
+                They capture the meaning and context of the information in a format that machines can work with.
+            </p>
+
+            <div class="highlight-box">
+                <strong>Simple Analogy:</strong> Think of embeddings like a fingerprint for text. 
+                Each piece of text gets a unique numerical pattern that represents its meaning. 
+                Similar texts will have similar fingerprints.
+            </div>
+
+            <h2>How Embeddings Work</h2>
+            <p>
+                Embeddings convert words and sentences into lists of numbers. For example:
+            </p>
+            <div class="example-box">
+                "The cat sat on the mat" might become:<br>
+                [0.2, -0.5, 0.1, 0.8, -0.3, 0.6, 0.9, ...] (hundreds of numbers)<br><br>
+                "A feline sat on the rug" might become:<br>
+                [0.21, -0.48, 0.12, 0.79, -0.31, 0.61, 0.88, ...] (very similar numbers!)
+            </div>
+
+            <h3>Key Properties of Embeddings</h3>
+            <ul>
+                <li><strong>Meaning Capture:</strong> Similar meanings produce similar embeddings</li>
+                <li><strong>Dimensional:</strong> Usually 100s or 1000s of dimensions</li>
+                <li><strong>Dense Representation:</strong> All dimensions contain meaningful information</li>
+                <li><strong>Learnable:</strong> Can be improved through machine learning</li>
+            </ul>
+
+            <h2>Vector Databases</h2>
+            <p>
+                Vector databases are specialized databases designed to store and search embeddings efficiently. 
+                They're optimized for finding similar items quickly, which is perfect for RAG systems.
+            </p>
+
+            <h3>Why Vector Databases?</h3>
+            <p>
+                Traditional databases are designed to find exact matches. Vector databases are designed to find similar items. 
+                This is crucial for RAG because you need to find "similar enough" documents, not just exact matches.
+            </p>
+
+            <div class="example-box">
+                <strong>Traditional Database:</strong><br>
+                "Find rows where age = 25" ✓ Works well<br>
+                "Find rows similar to this person" ✗ Inefficient<br><br>
+                <strong>Vector Database:</strong><br>
+                "Find vectors similar to this embedding" ✓ Very efficient
+            </div>
+
+            <h2>Popular Vector Databases</h2>
+            <ul>
+                <li><strong>Pinecone:</strong> Cloud-based, managed service, easy to use</li>
+                <li><strong>Weaviate:</strong> Open-source, self-hosted, feature-rich</li>
+                <li><strong>Milvus:</strong> Open-source, scalable, high performance</li>
+                <li><strong>Chroma:</strong> Lightweight, great for development</li>
+                <li><strong>FAISS:</strong> Facebook's library for similarity search</li>
+                <li><strong>Qdrant:</strong> Rust-based, very fast and efficient</li>
+            </ul>
+
+            <h2>The RAG Workflow with Embeddings</h2>
+            <p>Here's how embeddings and vector databases work in a RAG system:</p>
+
+            <h3>During Setup (Indexing)</h3>
+            <ol>
+                <li>Take your documents (customer support FAQs, product manuals, etc.)</li>
+                <li>Break them into chunks</li>
+                <li>Convert each chunk into an embedding</li>
+                <li>Store embeddings in a vector database</li>
+                <li>System is now ready to serve queries</li>
+            </ol>
+
+            <h3>During Query (Retrieval)</h3>
+            <ol>
+                <li>User asks a question</li>
+                <li>Convert the question into an embedding</li>
+                <li>Search the vector database for similar embeddings</li>
+                <li>Return the most similar documents</li>
+                <li>Pass these to the generator to create a response</li>
+            </ol>
+
+            <h2>Similarity Search Methods</h2>
+            <p>Vector databases use various methods to find similar vectors:</p>
+
+            <h3>Euclidean Distance</h3>
+            <p>Measures the straight-line distance between two points in space. Similar to measuring distance on a map.</p>
+
+            <h3>Cosine Similarity</h3>
+            <p>Measures the angle between vectors. Great for comparing direction/meaning rather than magnitude.</p>
+
+            <h3>Dot Product</h3>
+            <p>Quick similarity measure, often used in production systems for speed.</p>
+
+            <h2>Embedding Models</h2>
+            <p>You need a model to create embeddings from text:</p>
+
+            <ul>
+                <li><strong>OpenAI Embeddings:</strong> High quality, paid API</li>
+                <li><strong>Sentence Transformers:</strong> Open-source, free, good quality</li>
+                <li><strong>BERT Embeddings:</strong> Popular, multilingual options</li>
+                <li><strong>LLaMA Embeddings:</strong> Open-source option</li>
+            </ul>
+
+            <h2>Best Practices for Embeddings</h2>
+            <ul>
+                <li><strong>Consistency:</strong> Use the same embedding model for indexing and retrieval</li>
+                <li><strong>Chunking:</strong> Break documents into appropriate sizes (typically 256-512 tokens)</li>
+                <li><strong>Metadata:</strong> Store document metadata alongside embeddings for filtering</li>
+                <li><strong>Updating:</strong> Re-embed documents when content changes</li>
+                <li><strong>Monitoring:</strong> Track retrieval quality metrics</li>
+            </ul>
+
+            <h2>Challenges and Considerations</h2>
+            <ul>
+                <li><strong>Embedding Drift:</strong> Embeddings from different models may not be compatible</li>
+                <li><strong>Storage:</strong> High-dimensional vectors take up significant space</li>
+                <li><strong>Computational Cost:</strong> Embedding large documents is computationally expensive</li>
+                <li><strong>Context Loss:</strong> Some information is lost when converting text to vectors</li>
+            </ul>
+
+            <h2>Key Takeaways</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li>Embeddings convert text into numerical representations that capture meaning</li>
+                    <li>Vector databases are optimized for similarity search, perfect for RAG</li>
+                    <li>Similar texts produce similar embeddings</li>
+                    <li>During indexing, documents are embedded and stored</li>
+                    <li>During retrieval, questions are embedded and compared to stored embeddings</li>
+                    <li>Consistency in embedding models is crucial</li>
+                    <li>Vector databases enable fast, semantic retrieval</li>
+                </ul>
+            </div>
+
+            <div class="session-nav">
+                <a href="session-03.html">← Previous Session</a>
+                <span>Session 4 of 10</span>
+                <a href="session-05.html">Next Session →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RAG Learning. All rights reserved.</p>
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

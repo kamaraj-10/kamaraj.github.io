@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 3: Components of RAG - RAG Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">RAG Learning</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#sessions">Sessions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="session-header">
+        <h1>Session 3: Components of RAG</h1>
+        <p class="session-meta">Breaking Down the Building Blocks</p>
+    </header>
+
+    <section class="session-content">
+        <div class="container">
+            <h2>The Three Core Components</h2>
+            <p>
+                Every RAG system has three essential components that work together to retrieve information and generate responses. 
+                Understanding these components is crucial to understanding how RAG works.
+            </p>
+
+            <h2>1. Document Store / Knowledge Base</h2>
+            <p>
+                The document store is where all your information lives. It's the foundation of your RAG system. 
+                Think of it as a library, database, or collection of resources that your system can search through.
+            </p>
+
+            <h3>What Goes in a Document Store?</h3>
+            <ul>
+                <li>Company documents and policies</li>
+                <li>Product manuals and documentation</li>
+                <li>Research papers and articles</li>
+                <li>FAQs and knowledge base articles</li>
+                <li>Web pages and blog posts</li>
+                <li>Internal reports and memos</li>
+                <li>Scientific papers</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Important:</strong> The quality of your document store directly affects the quality of RAG responses. 
+                If your documents are outdated, inaccurate, or incomplete, your RAG system will produce poor results.
+            </div>
+
+            <h3>Document Store Characteristics</h3>
+            <ul>
+                <li><strong>Structured or Unstructured:</strong> Can store various formats (PDF, HTML, plain text)</li>
+                <li><strong>Searchable:</strong> Must allow efficient searching and retrieval</li>
+                <li><strong>Scalable:</strong> Should handle growing amounts of data</li>
+                <li><strong>Updatable:</strong> Easy to add, remove, or modify documents</li>
+            </ul>
+
+            <h2>2. Retriever</h2>
+            <p>
+                The retriever is the system's search engine. When a user asks a question, the retriever's job is to find 
+                the most relevant documents or passages from the document store that could help answer that question.
+            </p>
+
+            <h3>How Retrievers Work</h3>
+            <div class="example-box">
+                <strong>Analogy:</strong> Imagine a librarian with superpowers<br><br>
+                Traditional librarian: "Give me a question, and I'll search the card catalog"<br>
+                Retriever: "Give me a question, and I'll understand its meaning and find the most relevant books instantly"
+            </div>
+
+            <h3>Types of Retrieval Methods</h3>
+            <ul>
+                <li><strong>Keyword-based:</strong> Searches for exact words (like Google search)</li>
+                <li><strong>Semantic:</strong> Understands meaning, finds similar concepts</li>
+                <li><strong>Vector-based:</strong> Uses embeddings to find semantically similar content</li>
+                <li><strong>Hybrid:</strong> Combines multiple retrieval methods</li>
+            </ul>
+
+            <h3>Retriever Metrics</h3>
+            <ul>
+                <li><strong>Relevance:</strong> Does it find the right documents?</li>
+                <li><strong>Speed:</strong> How quickly does it retrieve results?</li>
+                <li><strong>Ranking:</strong> Does it rank most relevant results first?</li>
+            </ul>
+
+            <h2>3. Generator (Language Model)</h2>
+            <p>
+                The generator is the language model that reads the retrieved documents and generates a natural, 
+                coherent response to the user's question. It's like a writer that has all the facts it needs.
+            </p>
+
+            <h3>Generator's Role</h3>
+            <ul>
+                <li>Reads retrieved documents</li>
+                <li>Understands the user's question</li>
+                <li>Synthesizes information from multiple sources</li>
+                <li>Writes a clear, natural response</li>
+                <li>Potentially cites sources</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Key Difference from Traditional LLMs:</strong> The generator doesn't need to have all the world's knowledge 
+                in its parameters. It just needs to be good at reading and writing. This allows for smaller, faster models!
+            </div>
+
+            <h3>Generator Characteristics</h3>
+            <ul>
+                <li><strong>Instruction Following:</strong> Follows prompts well</li>
+                <li><strong>Context Understanding:</strong> Understands provided documents</li>
+                <li><strong>Quality Writing:</strong> Produces clear, coherent responses</li>
+                <li><strong>Efficiency:</strong> Can be smaller than traditional LLMs</li>
+            </ul>
+
+            <h2>How They Work Together</h2>
+            <div class="example-box">
+                <strong>Scenario:</strong> Customer asks about warranty<br><br>
+                1. <strong>User Question:</strong> "What's the warranty on your laptops?"<br><br>
+                2. <strong>Retriever:</strong> Searches the document store and finds warranty policy, product specs, and FAQ<br><br>
+                3. <strong>Generator:</strong> Reads the retrieved documents and writes: 
+                "Our laptops come with a 2-year hardware warranty covering manufacturing defects..."<br><br>
+                4. <strong>Response:</strong> Accurate, sourced answer delivered to user
+            </div>
+
+            <h2>Component Dependencies</h2>
+            <p>The three components depend on each other:</p>
+            <ul>
+                <li><strong>Document Store Quality:</strong> Affects both retriever and generator</li>
+                <li><strong>Retriever Quality:</strong> Directly affects what generator can write about</li>
+                <li><strong>Generator Quality:</strong> Affects how well the retrieved information is communicated</li>
+            </ul>
+
+            <h2>Optional Components</h2>
+            <p>Some advanced RAG systems add additional components:</p>
+            <ul>
+                <li><strong>Query Optimizer:</strong> Improves how questions are understood</li>
+                <li><strong>Re-ranker:</strong> Re-ranks retrieved documents for better relevance</li>
+                <li><strong>Filter/Router:</strong> Decides which component to use</li>
+                <li><strong>Cache:</strong> Stores frequently asked questions</li>
+            </ul>
+
+            <h2>Key Takeaways</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li>RAG consists of three core components: Document Store, Retriever, and Generator</li>
+                    <li>Document Store quality is critical - it's the foundation of RAG</li>
+                    <li>Retriever finds relevant information based on the question</li>
+                    <li>Generator writes responses based on retrieved information</li>
+                    <li>All three components work together for effective RAG</li>
+                    <li>Generator can be smaller and more efficient than traditional LLMs</li>
+                </ul>
+            </div>
+
+            <div class="session-nav">
+                <a href="session-02.html">← Previous Session</a>
+                <span>Session 3 of 10</span>
+                <a href="session-04.html">Next Session →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RAG Learning. All rights reserved.</p>
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

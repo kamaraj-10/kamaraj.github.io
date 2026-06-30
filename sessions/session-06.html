@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 6: Prompt Engineering for RAG - RAG Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">RAG Learning</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#sessions">Sessions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="session-header">
+        <h1>Session 6: Prompt Engineering for RAG</h1>
+        <p class="session-meta">Crafting Better Prompts for Better Responses</p>
+    </header>
+
+    <section class="session-content">
+        <div class="container">
+            <h2>What is Prompt Engineering?</h2>
+            <p>
+                Prompt engineering is the art and science of writing instructions that guide an AI model to produce the desired output. 
+                In RAG systems, the prompt tells the generator how to use retrieved documents to answer the user's question.
+            </p>
+
+            <div class="highlight-box">
+                <strong>Key Insight:</strong> The same retrieved documents can produce very different responses depending on how you prompt the generator. 
+                Good prompts are crucial for RAG success!
+            </div>
+
+            <h2>Basic Prompt Structure for RAG</h2>
+            <div class="example-box">
+                <strong>Simple RAG Prompt:</strong><br><br>
+                "Using the following documents, answer the question: [QUESTION]<br><br>
+                Documents:<br>
+                [RETRIEVED_DOCUMENTS]<br><br>
+                Answer: "
+            </div>
+
+            <h2>Key Elements of a Good RAG Prompt</h2>
+
+            <h3>1. Clear Instructions</h3>
+            <p>Tell the model exactly what you want it to do.</p>
+            <div class="example-box">
+                <strong>Weak:</strong> "Answer this question"<br><br>
+                <strong>Better:</strong> "Using only the provided documents, provide a clear and concise answer to the following question"
+            </div>
+
+            <h3>2. Context and Role</h3>
+            <p>Define the model's role and context.</p>
+            <div class="example-box">
+                "You are a helpful customer service representative. Using the company's knowledge base below, answer the customer's question..."
+            </div>
+
+            <h3>3. Document Presentation</h3>
+            <p>Present retrieved documents clearly.</p>
+            <div class="example-box">
+                <strong>Good Format:</strong><br><br>
+                Document 1: [source]<br>
+                [content]<br><br>
+                Document 2: [source]<br>
+                [content]
+            </div>
+
+            <h3>4. Output Format Specification</h3>
+            <p>Specify exactly how you want the answer formatted.</p>
+            <div class="example-box">
+                "Provide your answer in 2-3 sentences. If the documents don't contain enough information, say so."
+            </div>
+
+            <h3>5. Source Attribution</h3>
+            <p>Ask the model to cite its sources.</p>
+            <div class="example-box">
+                "Please cite the document or section you used for each fact."
+            </div>
+
+            <h2>Advanced Prompt Techniques</h2>
+
+            <h3>Chain-of-Thought Prompting</h3>
+            <p>Ask the model to show its reasoning step by step.</p>
+            <div class="example-box">
+                "Let's think through this step by step:<br>
+                1. What information from the documents is relevant?<br>
+                2. How does it answer the question?<br>
+                3. Is there any conflicting information?<br>
+                Based on this analysis, provide your answer."
+            </div>
+
+            <h3>Few-Shot Prompting</h3>
+            <p>Provide examples of the desired output format.</p>
+            <div class="example-box">
+                <strong>Example 1:</strong><br>
+                Q: "What's your return policy?"<br>
+                A: "Based on our policy documentation, items can be returned within 30 days of purchase..."<br><br>
+                <strong>Now answer this:</strong><br>
+                Q: [USER_QUESTION]
+            </div>
+
+            <h3>Conditioning on Document Quality</h3>
+            <p>Include instructions for when retrieved documents might be insufficient.</p>
+            <div class="example-box">
+                "If the provided documents don't contain relevant information, respond with: 'I don't have enough information to answer this question. Please contact support.'"
+            </div>
+
+            <h2>Common Prompt Mistakes</h2>
+
+            <h3>Mistake 1: Ambiguous Instructions</h3>
+            <p>
+                <strong>Bad:</strong> "Answer the question"<br>
+                <strong>Better:</strong> "Using only the provided documents, give a concise 1-2 sentence answer"
+            </p>
+
+            <h3>Mistake 2: Poor Document Formatting</h3>
+            <p>
+                If documents are presented unclearly, the model can't use them effectively.
+            </p>
+
+            <h3>Mistake 3: Trusting Hallucinations</h3>
+            <p>
+                Forgetting to instruct the model to stick to the documents.
+            </p>
+
+            <h3>Mistake 4: Over-Complicated Prompts</h3>
+            <p>
+                Simpler prompts often work better than overly complex ones.
+            </p>
+
+            <h2>Best Practices</h2>
+
+            <h3>1. Be Specific</h3>
+            <ul>
+                <li>Specify desired length (e.g., "in 1-2 sentences")</li>
+                <li>Specify tone (e.g., "professional", "friendly")</li>
+                <li>Specify format (e.g., "bullet points", "paragraph")</li>
+            </ul>
+
+            <h3>2. Test and Iterate</h3>
+            <ul>
+                <li>Try different prompt variations</li>
+                <li>Measure which works best on test questions</li>
+                <li>Keep improving based on results</li>
+            </ul>
+
+            <h3>3. Handle Edge Cases</h3>
+            <ul>
+                <li>What if no relevant documents are found?</li>
+                <li>What if documents conflict?</li>
+                <li>What if the question is outside the knowledge base?</li>
+            </ul>
+
+            <h3>4. Transparency</h3>
+            <ul>
+                <li>Ask model to cite sources</li>
+                <li>Request confidence levels</li>
+                <li>Ask for alternatives if possible</li>
+            </ul>
+
+            <h2>Example: Customer Support RAG Prompt</h2>
+            <div class="example-box">
+                <strong>Full Prompt:</strong><br><br>
+                "You are a friendly and helpful customer service representative. Using ONLY the knowledge base provided below, answer the customer's question concisely and accurately. If the knowledge base doesn't contain the information needed to answer, politely explain that and suggest they contact support. Always cite which document section you used for your answer.<br><br>
+                KNOWLEDGE BASE:<br>
+                [DOCUMENTS]<br><br>
+                CUSTOMER QUESTION:<br>
+                [QUESTION]<br><br>
+                RESPONSE:"
+            </div>
+
+            <h2>Key Takeaways</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li>Prompt engineering significantly impacts RAG quality</li>
+                    <li>Good prompts are clear, specific, and well-structured</li>
+                    <li>Document formatting in the prompt matters</li>
+                    <li>Always instruct the model to stick to provided documents</li>
+                    <li>Ask for source attribution to improve transparency</li>
+                    <li>Test and iterate on prompts based on real performance</li>
+                    <li>Use advanced techniques like chain-of-thought for complex tasks</li>
+                </ul>
+            </div>
+
+            <div class="session-nav">
+                <a href="session-05.html">← Previous Session</a>
+                <span>Session 6 of 10</span>
+                <a href="session-07.html">Next Session →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RAG Learning. All rights reserved.</p>
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

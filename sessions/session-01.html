@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 1: What is RAG? - RAG Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">RAG Learning</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#sessions">Sessions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="session-header">
+        <h1>Session 1: What is RAG?</h1>
+        <p class="session-meta">Understanding Retrieval-Augmented Generation</p>
+    </header>
+
+    <section class="session-content">
+        <div class="container">
+            <h2>Introduction to RAG</h2>
+            <p>
+                Retrieval-Augmented Generation (RAG) is a powerful AI technique that combines two key capabilities: 
+                <strong>retrieving relevant information</strong> from a knowledge base and <strong>generating accurate responses</strong> 
+                based on that information. Think of it as giving an AI assistant the ability to look up facts in a book before answering a question.
+            </p>
+
+            <div class="highlight-box">
+                <strong>Simple Definition:</strong> RAG enables AI systems to fetch specific information from external sources and use it to generate more accurate, 
+                contextual, and up-to-date responses.
+            </div>
+
+            <h2>Why RAG Matters</h2>
+            <p>
+                Traditional AI language models (like ChatGPT) generate responses based purely on patterns learned during training. 
+                They have several limitations:
+            </p>
+            <ul>
+                <li><strong>Outdated Information:</strong> Training data becomes outdated once the model is deployed</li>
+                <li><strong>Hallucinations:</strong> Models sometimes make up facts that sound plausible but are incorrect</li>
+                <li><strong>Limited Domain Knowledge:</strong> Models struggle with specialized or proprietary information</li>
+                <li><strong>No Source Verification:</strong> Difficult to trace where information comes from</li>
+            </ul>
+
+            <p>RAG solves these problems by grounding AI responses in real, verified information sources.</p>
+
+            <h2>How RAG Works (In Simple Terms)</h2>
+            <p>Imagine you're at a job interview:</p>
+            <ol>
+                <li><strong>The Question:</strong> The interviewer asks "What are the company's Q3 revenue figures?"</li>
+                <li><strong>Retrieval:</strong> Instead of guessing, you quickly flip through the company's annual report to find the exact number</li>
+                <li><strong>Generation:</strong> You use the information you found to provide an accurate, detailed answer</li>
+            </ol>
+            <p>This is exactly what RAG does! It retrieves relevant information first, then generates responses based on that information.</p>
+
+            <h2>Key Components of RAG</h2>
+            <p>A complete RAG system consists of three main components:</p>
+            
+            <h3>1. Knowledge Base / Document Store</h3>
+            <p>
+                This is where information is stored - think of it as the book in our earlier example. 
+                It could contain company documents, research papers, product manuals, or any relevant information.
+            </p>
+
+            <h3>2. Retriever</h3>
+            <p>
+                The retriever's job is to find the most relevant pieces of information from the knowledge base 
+                when a question is asked. It's like a search engine that understands the meaning behind questions.
+            </p>
+
+            <h3>3. Generator</h3>
+            <p>
+                Once relevant information is retrieved, the generator uses it to create a natural, coherent response. 
+                This is typically a language model that's good at writing but now has access to verified facts.
+            </p>
+
+            <h2>Real-World Example</h2>
+            <div class="example-box">
+                <strong>Scenario:</strong> A customer service chatbot<br><br>
+                <strong>Question:</strong> "What's your return policy for electronics?"<br><br>
+                <strong>RAG Process:</strong><br>
+                1. Retrieval: The system searches through the company's policies and finds the return policy for electronics<br>
+                2. Generation: Using the retrieved policy, it generates a clear, helpful response<br><br>
+                <strong>Response:</strong> "Electronics can be returned within 30 days of purchase in their original condition. 
+                For items over $100, a 15% restocking fee applies..."
+            </div>
+
+            <h2>Benefits of RAG</h2>
+            <ul>
+                <li><strong>Accuracy:</strong> Responses are based on verified information sources</li>
+                <li><strong>Currency:</strong> Can be updated simply by updating the knowledge base</li>
+                <li><strong>Transparency:</strong> Easy to trace where information comes from</li>
+                <li><strong>Reduced Hallucinations:</strong> Less likely to make up false information</li>
+                <li><strong>Domain-Specific:</strong> Works well for specialized knowledge</li>
+                <li><strong>Cost-Effective:</strong> Smaller models can perform better with retrieval support</li>
+            </ul>
+
+            <h2>Common Misconceptions</h2>
+            <p>
+                <strong>Misconception 1:</strong> "RAG replaces AI models"<br>
+                <strong>Reality:</strong> RAG works together with AI models. It improves their capabilities by providing relevant information.
+            </p>
+            <p>
+                <strong>Misconception 2:</strong> "RAG is always perfect"<br>
+                <strong>Reality:</strong> RAG's quality depends on the knowledge base quality and retrieval accuracy. Garbage in, garbage out!
+            </p>
+
+            <h2>When to Use RAG</h2>
+            <p>RAG is ideal for:</p>
+            <ul>
+                <li>Question-answering systems over documents</li>
+                <li>Customer support chatbots</li>
+                <li>Product recommendation systems</li>
+                <li>Legal or medical AI assistants</li>
+                <li>Knowledge base systems</li>
+                <li>Content creation tools</li>
+            </ul>
+
+            <h2>Key Takeaways</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li>RAG combines retrieval and generation for better AI responses</li>
+                    <li>It solves problems like hallucinations and outdated information</li>
+                    <li>RAG consists of a knowledge base, retriever, and generator</li>
+                    <li>It's particularly useful for domain-specific and knowledge-intensive tasks</li>
+                    <li>RAG improves accuracy by grounding responses in verified information</li>
+                </ul>
+            </div>
+
+            <div class="session-nav">
+                <a href="/" class="back-home">← Back to Home</a>
+                <span>Session 1 of 10</span>
+                <a href="session-02.html">Next Session →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RAG Learning. All rights reserved.</p>
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

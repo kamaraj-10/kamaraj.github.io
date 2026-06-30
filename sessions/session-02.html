@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 2: RAG vs Traditional LLMs - RAG Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">RAG Learning</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#sessions">Sessions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="session-header">
+        <h1>Session 2: RAG vs Traditional LLMs</h1>
+        <p class="session-meta">Understanding the Key Differences</p>
+    </header>
+
+    <section class="session-content">
+        <div class="container">
+            <h2>Traditional LLMs Without RAG</h2>
+            <p>
+                Traditional Language Models (LLMs) like GPT-3, GPT-4, or Bard are trained on massive amounts of text data. 
+                Once trained, their knowledge is frozen. They generate responses based entirely on patterns they learned during training.
+            </p>
+
+            <h3>How Traditional LLMs Work</h3>
+            <div class="example-box">
+                <strong>Question:</strong> "What was the highest-grossing movie of 2024?"<br><br>
+                <strong>Traditional LLM Response:</strong> The model predicts the next words based on its training data, 
+                which might be from 2023 or earlier. It might guess or provide outdated information.
+            </div>
+
+            <h2>Problems with Traditional LLMs</h2>
+            <ul>
+                <li><strong>Knowledge Cutoff:</strong> Can't access information beyond training data</li>
+                <li><strong>Hallucinations:</strong> Makes up convincing-sounding but false information</li>
+                <li><strong>No Real-time Data:</strong> Can't answer questions about current events</li>
+                <li><strong>Limited by Training Data:</strong> Struggles with domain-specific knowledge</li>
+                <li><strong>Outdated Responses:</strong> Information becomes stale over time</li>
+                <li><strong>No Source Attribution:</strong> Can't tell where information came from</li>
+            </ul>
+
+            <h2>RAG: The Game Changer</h2>
+            <p>
+                RAG systems combine the power of LLMs with the ability to retrieve current information. 
+                Instead of relying solely on training data, RAG systems look up relevant information first, then generate answers.
+            </p>
+
+            <div class="highlight-box">
+                <strong>Key Difference:</strong> Traditional LLMs generate from memory alone. 
+                RAG systems retrieve facts first, then generate based on those facts.
+            </div>
+
+            <h2>Side-by-Side Comparison</h2>
+            
+            <h3>Traditional LLM</h3>
+            <div class="example-box">
+                <strong>Question:</strong> "What are the current Bitcoin prices?"<br><br>
+                <strong>Process:</strong> LLM searches its training data → Predicts answer based on patterns<br><br>
+                <strong>Problem:</strong> Might provide outdated price or hallucinate a number
+            </div>
+
+            <h3>RAG System</h3>
+            <div class="example-box">
+                <strong>Question:</strong> "What are the current Bitcoin prices?"<br><br>
+                <strong>Process:</strong> Retrieves current price from data source → Generates response based on retrieved data<br><br>
+                <strong>Advantage:</strong> Provides accurate, up-to-date information with source attribution
+            </div>
+
+            <h2>Real-World Comparison Table</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background-color: var(--primary-color); color: white;">
+                    <th style="border: 1px solid #ddd; padding: 10px;">Aspect</th>
+                    <th style="border: 1px solid #ddd; padding: 10px;">Traditional LLM</th>
+                    <th style="border: 1px solid #ddd; padding: 10px;">RAG System</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>Knowledge Source</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Training data only</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">External documents + LLM</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>Real-time Info</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">❌ Not possible</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">✅ Yes, if data is updated</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>Hallucination Risk</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">High</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Low</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>Source Tracing</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">❌ Impossible</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">✅ Possible</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>Domain Knowledge</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Limited</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Extensive if docs provided</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>Update Frequency</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Requires retraining</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Update documents only</td>
+                </tr>
+            </table>
+
+            <h2>When to Use Each Approach</h2>
+            
+            <h3>Use Traditional LLM When:</h3>
+            <ul>
+                <li>You need general knowledge and creative writing</li>
+                <li>Information doesn't change frequently</li>
+                <li>You need fast responses without retrieval</li>
+                <li>Training data is sufficient for your use case</li>
+                <li>You're building creative applications (poetry, stories)</li>
+            </ul>
+
+            <h3>Use RAG When:</h3>
+            <ul>
+                <li>You need accurate, factual responses</li>
+                <li>Information changes frequently</li>
+                <li>You need to cite sources</li>
+                <li>You have domain-specific documents</li>
+                <li>Building customer support or Q&A systems</li>
+                <li>You want to reduce hallucinations</li>
+            </ul>
+
+            <h2>Can You Combine Both?</h2>
+            <p>
+                Absolutely! Many modern systems use a hybrid approach:
+            </p>
+            <ul>
+                <li>Use RAG for factual questions</li>
+                <li>Use traditional LLM for creative responses</li>
+                <li>Route questions intelligently to the best system</li>
+            </ul>
+
+            <h2>The Future: RAG + LLMs</h2>
+            <p>
+                The future isn't choosing between RAG and LLMs - it's combining them intelligently. 
+                Most cutting-edge AI systems now use RAG to enhance LLM capabilities with current, accurate information.
+            </p>
+
+            <h2>Key Takeaways</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li>Traditional LLMs rely on training data; RAG retrieves current information</li>
+                    <li>RAG significantly reduces hallucinations by grounding responses in facts</li>
+                    <li>RAG enables source attribution; traditional LLMs cannot</li>
+                    <li>RAG is better for factual, domain-specific information</li>
+                    <li>Traditional LLMs are better for creative tasks</li>
+                    <li>Many systems now use both approaches strategically</li>
+                </ul>
+            </div>
+
+            <div class="session-nav">
+                <a href="session-01.html">← Previous Session</a>
+                <span>Session 2 of 10</span>
+                <a href="session-03.html">Next Session →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RAG Learning. All rights reserved.</p>
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

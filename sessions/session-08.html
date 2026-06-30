@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 8: Building Your First RAG System - RAG Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">RAG Learning</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#sessions">Sessions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="session-header">
+        <h1>Session 8: Building Your First RAG System</h1>
+        <p class="session-meta">Hands-On Guide to Creating a Simple RAG</p>
+    </header>
+
+    <section class="session-content">
+        <div class="container">
+            <h2>Overview: What We'll Build</h2>
+            <p>
+                In this session, we'll walk through the process of building a simple RAG system that can answer questions about a company's policies. 
+                This will be a practical, step-by-step guide.
+            </p>
+
+            <div class="highlight-box">
+                <strong>Project Scope:</strong> A simple Q&A system that answers questions about a company's leave policy using their documentation.
+            </div>
+
+            <h2>Step 1: Prepare Your Documents</h2>
+            <p>
+                The first step is to gather and organize your documents. This will be your knowledge base.
+            </p>
+
+            <h3>What to Do:</h3>
+            <ol>
+                <li>Collect all relevant documents (PDFs, text files, web pages)</li>
+                <li>Organize them logically</li>
+                <li>Ensure documents are high quality and up-to-date</li>
+                <li>Remove duplicates</li>
+                <li>Clean up formatting</li>
+            </ol>
+
+            <div class="example-box">
+                <strong>Example Document Structure:</strong><br>
+                /documents/<br>
+                &nbsp;&nbsp;leave-policy.txt<br>
+                &nbsp;&nbsp;work-from-home-policy.txt<br>
+                &nbsp;&nbsp;vacation-guidelines.txt<br>
+                &nbsp;&nbsp;sick-leave-policy.txt
+            </div>
+
+            <h2>Step 2: Choose Your Tools</h2>
+            <p>
+                Select the right tools for your RAG system. Here are popular options for beginners:
+            </p>
+
+            <h3>Embedding Model</h3>
+            <ul>
+                <li><strong>Sentence Transformers:</strong> Free, open-source, easy to use locally</li>
+                <li><strong>OpenAI Embeddings:</strong> High quality, cloud-based, paid</li>
+            </ul>
+
+            <h3>Vector Database</h3>
+            <ul>
+                <li><strong>Chroma:</strong> Simple, local-first, great for development</li>
+                <li><strong>Pinecone:</strong> Cloud-based, managed, easy to scale</li>
+            </ul>
+
+            <h3>Language Model (Generator)</h3>
+            <ul>
+                <li><strong>OpenAI GPT:</strong> Most popular, high quality, paid API</li>
+                <li><strong>Open-source Models:</strong> Llama, Mistral, etc. (free but require hosting)</li>
+            </ul>
+
+            <div class="example-box">
+                <strong>Beginner-Friendly Stack:</strong><br>
+                - Embeddings: Sentence Transformers<br>
+                - Vector DB: Chroma<br>
+                - Generator: OpenAI GPT-3.5
+            </div>
+
+            <h2>Step 3: Set Up Your Environment</h2>
+            <p>
+                Install necessary libraries and set up your development environment.
+            </p>
+
+            <div class="example-box">
+                <strong>Python Packages to Install:</strong><br>
+                pip install langchain chroma-db sentence-transformers openai
+            </div>
+
+            <h2>Step 4: Create Embeddings (Indexing)</h2>
+            <p>
+                Convert your documents into embeddings and store them in your vector database.
+            </p>
+
+            <h3>Process:</h3>
+            <ol>
+                <li>Load your documents</li>
+                <li>Split them into chunks (256-512 tokens each)</li>
+                <li>Create embeddings for each chunk</li>
+                <li>Store in vector database</li>
+            </ol>
+
+            <div class="example-box">
+                <strong>High-Level Process:</strong><br><br>
+                Document: "Employees get 20 days of annual leave..."<br>
+                ↓<br>
+                Chunks: ["Employees get 20 days", "of annual leave", ...]<br>
+                ↓<br>
+                Embeddings: [[0.2, -0.5, 0.1, ...], [0.21, -0.48, ...], ...]<br>
+                ↓<br>
+                Stored in Vector DB
+            </div>
+
+            <h2>Step 5: Build the Retrieval System</h2>
+            <p>
+                Create a retriever that can find relevant documents based on a query.
+            </p>
+
+            <h3>Implementation Steps:</h3>
+            <ol>
+                <li>Convert user query to embedding</li>
+                <li>Search vector database for similar embeddings</li>
+                <li>Retrieve top-k most similar documents (typically k=3-5)</li>
+                <li>Return relevant documents</li>
+            </ol>
+
+            <h2>Step 6: Build the Generator Pipeline</h2>
+            <p>
+                Create the final RAG pipeline that retrieves documents and generates responses.
+            </p>
+
+            <div class="example-box">
+                <strong>RAG Pipeline:</strong><br><br>
+                1. User asks: "How many days of leave do I get?"<br>
+                2. Retrieve relevant documents about leave policy<br>
+                3. Create prompt with retrieved documents<br>
+                4. Send to language model<br>
+                5. Get generated response<br>
+                6. Return to user
+            </div>
+
+            <h2>Step 7: Test and Evaluate</h2>
+            <p>
+                Test your RAG system with real questions and measure its performance.
+            </p>
+
+            <h3>Test Cases:</h3>
+            <ul>
+                <li><strong>Direct Questions:</strong> "What's the annual leave policy?" (should retrieve relevant docs)</li>
+                <li><strong>Synonyms:</strong> "How many vacation days?" (should understand and retrieve)</li>
+                <li><strong>Edge Cases:</strong> "Can I work from Mars?" (should gracefully handle)</li>
+                <li><strong>Partial Information:</strong> Questions not fully covered in docs</li>
+            </ul>
+
+            <h3>Metrics to Track:</h3>
+            <ul>
+                <li><strong>Relevance:</strong> Are retrieved documents actually relevant?</li>
+                <li><strong>Accuracy:</strong> Are generated answers correct?</li>
+                <li><strong>Speed:</strong> How fast is the response?</li>
+                <li><strong>User Satisfaction:</strong> Would users accept this response?</li>
+            </ul>
+
+            <h2>Step 8: Iterate and Improve</h2>
+            <p>
+                Use evaluation results to improve your RAG system.
+            </p>
+
+            <h3>Improvement Strategies:</h3>
+            <ul>
+                <li><strong>Better Chunking:</strong> Experiment with different chunk sizes</li>
+                <li><strong>Better Prompts:</strong> Refine your system prompts</li>
+                <li><strong>Better Documents:</strong> Update or reorganize your knowledge base</li>
+                <li><strong>Better Retrieval:</strong> Try hybrid search or re-ranking</li>
+                <li><strong>Feedback Loop:</strong> Learn from user corrections</li>
+            </ul>
+
+            <h2>Common Challenges and Solutions</h2>
+
+            <h3>Challenge: Poor Retrieval Quality</h3>
+            <p><strong>Solutions:</strong> Better document organization, hybrid search, query expansion</p>
+
+            <h3>Challenge: Hallucinations</h3>
+            <p><strong>Solutions:</strong> Better prompts, explicitly instruct to stick to documents</p>
+
+            <h3>Challenge: Slow Response Times</h3>
+            <p><strong>Solutions:</strong> Use smaller embedding models, add caching, optimize vector search</p>
+
+            <h3>Challenge: Stale Information</h3>
+            <p><strong>Solutions:</strong> Regularly update documents, monitor for changes</p>
+
+            <h2>Next Steps After Building</h2>
+            <ul>
+                <li>Deploy to a web service</li>
+                <li>Add user feedback mechanism</li>
+                <li>Monitor performance metrics</li>
+                <li>Scale to more documents</li>
+                <li>Integrate with other systems</li>
+                <li>Add analytics and logging</li>
+            </ul>
+
+            <h2>Key Takeaways</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li>Building RAG starts with preparing quality documents</li>
+                    <li>Choose appropriate tools for your use case</li>
+                    <li>Indexing creates embeddings and stores them</li>
+                    <li>Retrieval finds relevant documents for queries</li>
+                    <li>Generation creates responses based on retrieved docs</li>
+                    <li>Testing and iteration are crucial</li>
+                    <li>Most failures come from poor retrieval or documents</li>
+                    <li>Start simple and improve gradually</li>
+                </ul>
+            </div>
+
+            <div class="session-nav">
+                <a href="session-07.html">← Previous Session</a>
+                <span>Session 8 of 10</span>
+                <a href="session-09.html">Next Session →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RAG Learning. All rights reserved.</p>
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
