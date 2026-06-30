@@ -11,7 +11,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Active nav link highlighting
 window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section[id]');
+    const sections = document.querySelectorAll('#home, #sessions, #about');
     const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
 
     let current = '';
