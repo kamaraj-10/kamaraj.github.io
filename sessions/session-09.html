@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 9: Advanced RAG Techniques - RAG Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">RAG Learning</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#sessions">Sessions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="session-header">
+        <h1>Session 9: Advanced RAG Techniques</h1>
+        <p class="session-meta">Taking RAG to the Next Level</p>
+    </header>
+
+    <section class="session-content">
+        <div class="container">
+            <h2>Moving Beyond Basic RAG</h2>
+            <p>
+                Once you have a working basic RAG system, there are many advanced techniques you can employ to significantly improve performance. 
+                This session covers techniques used in production systems.
+            </p>
+
+            <h2>1. Re-Ranking</h2>
+            <p>
+                Instead of using the top-k results from initial retrieval, you can use a specialized re-ranker model to re-score and re-rank results.
+            </p>
+
+            <h3>How It Works:</h3>
+            <ol>
+                <li>Initial retrieval returns top-100 candidates (fast but less accurate)</li>
+                <li>Re-ranker model scores each candidate more carefully</li>
+                <li>Top-k by re-ranker score is passed to generator</li>
+            </ol>
+
+            <h3>Benefits:</h3>
+            <ul>
+                <li>Improved retrieval quality</li>
+                <li>Still maintains reasonable speed</li>
+                <li>No need to change indexing</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Trade-off:</strong> Takes longer than basic retrieval but produces better results than basic retrieval alone.
+            </div>
+
+            <h2>2. Query Expansion and Reformulation</h2>
+            <p>
+                Instead of retrieving based on the original query alone, expand it with variations and related queries.
+            </p>
+
+            <h3>Techniques:</h3>
+            <ul>
+                <li><strong>Synonym Expansion:</strong> Add synonyms automatically</li>
+                <li><strong>Query Reformulation:</strong> Rephrase query in different ways</li>
+                <li><strong>Sub-query Generation:</strong> Break complex query into sub-queries</li>
+            </ul>
+
+            <div class="example-box">
+                <strong>Original Query:</strong> "laptop warranty"<br><br>
+                <strong>Expanded Queries:</strong><br>
+                - "laptop warranty period"<br>
+                - "computer warranty"<br>
+                - "device coverage"<br>
+                - "hardware protection"
+            </div>
+
+            <h2>3. Multi-Hop Retrieval</h2>
+            <p>
+                For complex questions requiring information from multiple documents, use multi-hop retrieval to retrieve in stages.
+            </p>
+
+            <h3>Process:</h3>
+            <ol>
+                <li>Retrieve documents for first part of question</li>
+                <li>From those results, identify what additional information is needed</li>
+                <li>Retrieve documents for second part</li>
+                <li>Combine all retrieved information</li>
+            </ol>
+
+            <div class="example-box">
+                <strong>Question:</strong> "What are the benefits of the premium subscription offered in North America?"<br><br>
+                <strong>Hop 1:</strong> Retrieve documents about premium subscription<br>
+                <strong>Hop 2:</strong> Retrieve documents about North America specific offerings<br>
+                <strong>Combine:</strong> Find intersection of both
+            </div>
+
+            <h2>4. Hybrid Search (Keyword + Semantic)</h2>
+            <p>
+                Combine keyword-based search with semantic search and intelligently merge results.
+            </p>
+
+            <h3>Why Hybrid is Better:</h3>
+            <ul>
+                <li><strong>Keyword Search:</strong> Great for exact matches, fast</li>
+                <li><strong>Semantic Search:</strong> Great for understanding meaning</li>
+                <li><strong>Together:</strong> Best of both worlds</li>
+            </ul>
+
+            <h3>Merging Strategies:</h3>
+            <ul>
+                <li><strong>Union:</strong> Combine all results, remove duplicates</li>
+                <li><strong>Reciprocal Rank Fusion:</strong> Score based on rank in both systems</li>
+                <li><strong>Weighted Average:</strong> Combine scores with weights</li>
+            </ul>
+
+            <h2>5. Metadata Filtering and Contextualization</h2>
+            <p>
+                Use metadata (dates, categories, sources) to filter or contextualize search results.
+            </p>
+
+            <h3>Use Cases:</h3>
+            <ul>
+                <li><strong>Date-Based:</strong> "Recent articles" - filter by publication date</li>
+                <li><strong>Category-Based:</strong> "Documentation only" - filter by source type</li>
+                <li><strong>Version-Based:</strong> "Latest version" - filter by product version</li>
+                <li><strong>Author-Based:</strong> "Official sources only" - filter by author</li>
+            </ul>
+
+            <div class="example-box">
+                <strong>Query:</strong> "What are the privacy policies?"<br><br>
+                <strong>With Filtering:</strong><br>
+                - Retrieve only from "official" category<br>
+                - Only documents updated in last 6 months<br>
+                - From your company sources only
+            </div>
+
+            <h2>6. Caching and LRU (Least Recently Used)</h2>
+            <p>
+                Cache results for frequently asked questions to reduce latency and compute costs.
+            </p>
+
+            <h3>Implementation:</h3>
+            <ul>
+                <li>Store responses for common queries</li>
+                <li>Return cached response if query matches</li>
+                <li>Update cache when documents change</li>
+                <li>Track usage patterns</li>
+            </ul>
+
+            <h3>Benefits:</h3>
+            <ul>
+                <li>Dramatically faster responses for common queries</li>
+                <li>Reduced API costs</li>
+                <li>Better user experience</li>
+            </ul>
+
+            <h2>7. Feedback Loop and Learning</h2>
+            <p>
+                Collect user feedback to identify failures and improve the system over time.
+            </p>
+
+            <h3>Types of Feedback:</h3>
+            <ul>
+                <li><strong>Explicit:</strong> Users rate responses (thumbs up/down)</li>
+                <li><strong>Implicit:</strong> Track query reformulations, session abandonment</li>
+                <li><strong>Manual Review:</strong> Human review of failing cases</li>
+            </ul>
+
+            <h3>Using Feedback:</h3>
+            <ul>
+                <li>Identify problematic queries</li>
+                <li>Find gaps in knowledge base</li>
+                <li>Optimize prompt templates</li>
+                <li>Improve retrieval algorithms</li>
+            </ul>
+
+            <h2>8. Graph-Based Retrieval</h2>
+            <p>
+                Represent documents as nodes in a graph with relationships, enabling smarter traversal and retrieval.
+            </p>
+
+            <h3>Benefits:</h3>
+            <ul>
+                <li>Find related documents through relationships</li>
+                <li>Understand document hierarchy</li>
+                <li>Navigate complex knowledge structures</li>
+            </ul>
+
+            <h2>9. Contextual Compression</h2>
+            <p>
+                Instead of passing entire documents to the generator, compress them to only the relevant portions.
+            </p>
+
+            <h3>Why It's Important:</h3>
+            <ul>
+                <li>Reduces token usage (lower cost)</li>
+                <li>Reduces hallucinations (less irrelevant info)</li>
+                <li>Faster generation (shorter context)</li>
+            </ul>
+
+            <h2>10. Iterative Generation with Feedback</h2>
+            <p>
+                Generate an initial response, evaluate it, and regenerate if needed to improve quality.
+            </p>
+
+            <h3>Process:</h3>
+            <ol>
+                <li>Generate initial response</li>
+                <li>Check quality (factuality, completeness)</li>
+                <li>If poor, retrieve additional information</li>
+                <li>Regenerate with more context</li>
+            </ol>
+
+            <h2>Performance Optimization</h2>
+
+            <h3>Latency Optimization</h3>
+            <ul>
+                <li>Use approximate nearest neighbor search</li>
+                <li>Implement caching</li>
+                <li>Batch requests</li>
+                <li>Use GPU acceleration</li>
+            </ul>
+
+            <h3>Cost Optimization</h3>
+            <ul>
+                <li>Use smaller embedding models</li>
+                <li>Implement caching for common queries</li>
+                <li>Use open-source models instead of APIs</li>
+                <li>Compress retrieved documents</li>
+            </ul>
+
+            <h2>Monitoring and Observability</h2>
+            <p>
+                Track important metrics to understand system performance:
+            </p>
+            <ul>
+                <li>Retrieval quality metrics (precision, recall, MRR)</li>
+                <li>Generation quality (user ratings, accuracy)</li>
+                <li>System metrics (latency, cost, error rate)</li>
+                <li>Business metrics (user satisfaction, conversion)</li>
+            </ul>
+
+            <h2>Key Takeaways</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li>Re-ranking improves retrieval quality significantly</li>
+                    <li>Query expansion handles variations of questions</li>
+                    <li>Multi-hop retrieval handles complex questions</li>
+                    <li>Hybrid search combines best of keyword and semantic search</li>
+                    <li>Metadata filtering enables precise control</li>
+                    <li>Caching dramatically improves performance for common queries</li>
+                    <li>Feedback loops enable continuous improvement</li>
+                    <li>Monitoring is essential for production systems</li>
+                </ul>
+            </div>
+
+            <div class="session-nav">
+                <a href="session-08.html">← Previous Session</a>
+                <span>Session 9 of 10</span>
+                <a href="session-10.html">Next Session →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RAG Learning. All rights reserved.</p>
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

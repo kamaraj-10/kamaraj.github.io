@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 5: Retrieval Mechanisms - RAG Learning</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">RAG Learning</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#sessions">Sessions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="session-header">
+        <h1>Session 5: Retrieval Mechanisms</h1>
+        <p class="session-meta">Finding the Right Information Fast</p>
+    </header>
+
+    <section class="session-content">
+        <div class="container">
+            <h2>What are Retrieval Mechanisms?</h2>
+            <p>
+                Retrieval mechanisms are the strategies and techniques used to find relevant information from a document store 
+                when a user asks a question. The better your retrieval mechanism, the better your RAG system performs.
+            </p>
+
+            <div class="highlight-box">
+                <strong>Key Principle:</strong> If you retrieve the wrong documents, even the best language model can't generate a good response. 
+                Retrieval is the foundation of RAG success!
+            </div>
+
+            <h2>Types of Retrieval Mechanisms</h2>
+
+            <h3>1. Keyword-Based Retrieval</h3>
+            <p>
+                The simplest approach: search for documents that contain the keywords from the question. 
+                Like using Ctrl+F to find text in a document.
+            </p>
+
+            <h4>Pros:</h4>
+            <ul>
+                <li>Fast and simple</li>
+                <li>Works well for exact matches</li>
+                <li>Easy to implement</li>
+            </ul>
+
+            <h4>Cons:</h4>
+            <ul>
+                <li>Doesn't understand meaning</li>
+                <li>Fails with synonyms</li>
+                <li>Poor for complex questions</li>
+            </ul>
+
+            <div class="example-box">
+                <strong>Example:</strong><br>
+                Question: "How do I fix my computer?"<br>
+                Keyword search: "computer" "fix"<br>
+                Result: Only finds documents with these exact words
+            </div>
+
+            <h3>2. Semantic Search / Vector-Based Retrieval</h3>
+            <p>
+                Uses embeddings to understand meaning. Finds documents that are semantically similar to the question, 
+                even if they don't use the exact same words.
+            </p>
+
+            <h4>Pros:</h4>
+            <ul>
+                <li>Understands meaning</li>
+                <li>Works with synonyms</li>
+                <li>Great for complex queries</li>
+            </ul>
+
+            <h4>Cons:</h4>
+            <ul>
+                <li>Computationally expensive</li>
+                <li>Quality depends on embedding model</li>
+                <li>May return irrelevant documents</li>
+            </ul>
+
+            <div class="example-box">
+                <strong>Example:</strong><br>
+                Question: "How do I fix my computer?"<br>
+                Semantic search finds documents about:<br>
+                - Troubleshooting<br>
+                - PC problems<br>
+                - System repairs<br>
+                Even if they don't use "fix" or "computer"!
+            </div>
+
+            <h3>3. Hybrid Retrieval</h3>
+            <p>
+                Combines keyword and semantic search. Uses both approaches and merges results intelligently.
+            </p>
+
+            <h4>Approach:</h4>
+            <ol>
+                <li>Get keyword search results</li>
+                <li>Get semantic search results</li>
+                <li>Merge and rank them</li>
+                <li>Return best results</li>
+            </ol>
+
+            <h4>Advantages:</h4>
+            <ul>
+                <li>Combines strengths of both approaches</li>
+                <li>Better overall performance</li>
+                <li>More robust to edge cases</li>
+            </ul>
+
+            <h3>4. Query Expansion</h3>
+            <p>
+                Improves retrieval by automatically expanding the user's question with related terms or reformulations.
+            </p>
+
+            <div class="example-box">
+                <strong>Original Query:</strong> "laptop warranty"<br><br>
+                <strong>Expanded Queries:</strong><br>
+                - "laptop warranty period"<br>
+                - "computer warranty coverage"<br>
+                - "device protection plan"<br>
+                - "hardware warranty terms"<br><br>
+                Results from all expanded queries are combined!
+            </div>
+
+            <h3>5. Multi-Hop Retrieval</h3>
+            <p>
+                For complex questions that require information from multiple documents, multi-hop retrieval retrieves 
+                relevant information in multiple steps.
+            </p>
+
+            <div class="example-box">
+                <strong>Example:</strong><br>
+                Question: "What's the warranty on laptops bought from the discount section?"<br><br>
+                Step 1: Find documents about discount products<br>
+                Step 2: From those, find warranty information<br>
+                Step 3: Combine information from both steps
+            </div>
+
+            <h2>Retrieval Quality Metrics</h2>
+
+            <h3>Precision</h3>
+            <p>What percentage of retrieved documents are actually relevant?</p>
+            <div class="example-box">
+                Retrieved 10 documents, 7 are relevant = 70% precision
+            </div>
+
+            <h3>Recall</h3>
+            <p>What percentage of all relevant documents were retrieved?</p>
+            <div class="example-box">
+                10 relevant documents exist, retrieved 7 = 70% recall
+            </div>
+
+            <h3>Mean Reciprocal Rank (MRR)</h3>
+            <p>How high is the first relevant result ranked?</p>
+
+            <h2>Advanced Retrieval Techniques</h2>
+
+            <h3>Re-ranking</h3>
+            <p>
+                Retrieve many candidates (e.g., top 100), then use a more sophisticated model to re-rank them and return the best few. 
+                This improves quality while staying fast.
+            </p>
+
+            <h3>Filtering</h3>
+            <p>
+                Pre-filter documents by metadata (date, category, source) before semantic search to reduce scope and improve speed.
+            </p>
+
+            <h3>Caching</h3>
+            <p>
+                Store results for common questions and return cached results instead of retrieving again. Speeds up common queries significantly.
+            </p>
+
+            <h2>Practical Tips for Better Retrieval</h2>
+            <ul>
+                <li><strong>Document Chunking:</strong> Break documents into appropriate sizes - too small loses context, too large loses precision</li>
+                <li><strong>Metadata:</strong> Include rich metadata (title, author, date, category) to enable better filtering</li>
+                <li><strong>Testing:</strong> Evaluate your retriever on real questions users ask</li>
+                <li><strong>Iterating:</strong> Use metrics to identify and fix retrieval failures</li>
+                <li><strong>Balancing:</strong> Balance between precision and recall based on your use case</li>
+            </ul>
+
+            <h2>Key Takeaways</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li>Retrieval is critical - garbage in, garbage out</li>
+                    <li>Keyword-based retrieval is simple but limited</li>
+                    <li>Semantic/vector-based retrieval understands meaning better</li>
+                    <li>Hybrid retrieval combines both approaches for better results</li>
+                    <li>Query expansion can improve retrieval for complex questions</li>
+                    <li>Multi-hop retrieval handles questions requiring information from multiple sources</li>
+                    <li>Always measure and optimize retrieval quality</li>
+                </ul>
+            </div>
+
+            <div class="session-nav">
+                <a href="session-04.html">← Previous Session</a>
+                <span>Session 5 of 10</span>
+                <a href="session-06.html">Next Session →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 RAG Learning. All rights reserved.</p>
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
